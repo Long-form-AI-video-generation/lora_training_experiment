@@ -14,7 +14,7 @@ TRIGGER_WORD = "dbz_fight_style"
 
 # How many frames to sample from each video for captioning.
 # Increased to 15 for potentially better, more detailed captions.
-FRAMES_PER_CLIP = 15
+FRAMES_PER_CLIP = 30
 
 gpu_index = int(os.environ.get("BLIP2_GPU", 1))
 device = f"cuda:{gpu_index}"
