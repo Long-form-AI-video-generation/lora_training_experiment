@@ -7,7 +7,7 @@ from tqdm import tqdm
 # --- 1. CONFIGURATION: UPDATE THESE ---
 
 # Path to the base Wan2.1 I2V model directory
-BASE_MODEL_PATH = "/home/comfy/projects/lora_training_experiment/models/WAN2.1_I2V_14B"
+BASE_MODEL_PATH = "/home/comfy/projects/lora_training_experiment/WAN_14B_Diffusers_Format"
 
 # Path to your trained LoRA .safetensors file
 LORA_CHECKPOINT_PATH = "/home/comfy/projects/lora_training_experiment/diffusion-pipe/data/output/20250715_16-17-40/epoch20/adapter_model.safetensors"
@@ -21,7 +21,7 @@ PROMPT = "dbz_fight_style, a warrior unleashes a powerful punch, shockwave effec
 OUTPUT_DIR = "latent_walk_frames"
 
 # How many inference steps to perform in total
-NUM_INFERENCE_STEPS = 50
+NUM_INFERENCE_STEPS = 40
 
 # How often to save an intermediate image (e.g., save every 5 steps)
 SAVE_EVERY_N_STEPS = 5
@@ -38,7 +38,6 @@ def main():
     pipe = DiffusionPipeline.from_pretrained(
         BASE_MODEL_PATH,
         torch_dtype=torch.float16,
-        variant="fp16"
     ).to("cuda")
     
     # This is the simpler method to load and fuse a LoRA for a single run
