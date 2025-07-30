@@ -1,0 +1,28 @@
+# =========================================================================
+# === Clean Dataset Config for WAN I2V 14B Video Training ===
+# =========================================================================
+# This file configures the dataset for training on a fixed video size.
+# It assumes all your training videos are in a single directory.
+
+# --- Resolution and Frame Settings ---
+# We are training on a single, fixed resolution and frame count.
+# Aspect ratio bucketing is not needed for this simple case.
+resolutions = [[512, 512]] # Training on 512x512 resolution.
+frame_buckets = [80]        # Training on exactly 80 frames per video.
+
+# --- Captioning Settings ---
+# Probability of training with a blank caption. Helps prevent the model
+# from becoming too dependent on the prompt. 0.05 is a good default.
+caption_dropout_prob = 0.05
+
+# --- Main Dataset Directory ---
+# Define the single directory containing your training data.
+[[directory]]
+# REQUIRED: This must be the absolute path to your folder of .mp4 and .txt files.
+# Make sure this path is correct for your system.
+path = "/home/comfy/projects/lora_training_experiment/data_processor/clipped_videos"
+
+# Number of times to repeat the dataset per epoch.
+# 1 means one epoch is a single pass over all your videos.
+num_repeats = 1
+i2v_conditioning = "first_frame"
