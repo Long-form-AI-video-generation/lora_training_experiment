@@ -1,0 +1,60 @@
+
+output_dir ='/home/comfy/projects/lora_training_experiment/diffusion-pipe/data/output_demetri'
+
+dataset = '/home/comfy/projects/lora_training_experiment/training/demetri_dataset.toml'
+
+epochs = 15
+
+micro_batch_size_per_gpu = 1
+pipeline_stages = 1 
+gradient_accumulation_steps = 1
+gradient_clipping = 1
+
+warmup_steps = 100
+
+blocks_to_swap = 32
+activation_checkpointing = 'unsloth' # 'unsloth' is great for VRAM savings.
+
+save_every_n_epochs = 5
+checkpoint_every_n_minutes = 60 # Saving a resume checkpoint every hour is reasonable.
+
+eval_every_n_epochs = 5
+eval_before_first_step = true
+eval_micro_batch_size_per_gpu = 1
+eval_gradient_accumulation_steps = 1
+
+# --- Misc Settings ---
+save_dtype = 'bfloat16'
+caching_batch_size = 1
+steps_per_print = 10 # Print updates every 10 steps instead of every step.
+
+# --- Model Configuration ---
+# This uses your ckpt_path method, which is great if your folder is structured correctly.
+[model]
+type = 'wan'
+# !!! IMPORTANT !!!
+# Ensure this path points to the main folder containing all Wan 2.1 model components
+# (e.g., DiT_g.safetensors, sdxl_vae.safetensors, t5-v1_1-xxl folder, clip-vit-large-patch14 folder).
+
+ckpt_path = '/home/comfy/projects/lora_training_experiment/WAN_14B_T2V_Standard'
+
+dtype = 'bfloat16'
+transformer_dtype = 'float8'
+timestep_sample_method = 'logit_normal'
+
+# --- LoRA Adapter Configuration ---
+[adapter]
+type = 'lora'
+# Rank 32 is a solid and memory-efficient starting point for a character.
+rank = 32
+dtype = 'bfloat16'
+
+# --- Optimizer Configuration ---
+[optimizer]
+type = 'AdamW8bitKahan'
+
+lr = 1e-4
+
+betas = [0.9, 0.99]
+weight_decay = 0.01
+stabilize = false
