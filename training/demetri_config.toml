@@ -3,7 +3,7 @@ output_dir ='/home/comfy/projects/lora_training_experiment/diffusion-pipe/data/o
 
 dataset = '/home/comfy/projects/lora_training_experiment/training/demetri_dataset.toml'
 
-epochs = 15
+epochs = 10
 
 micro_batch_size_per_gpu = 1
 pipeline_stages = 1 
