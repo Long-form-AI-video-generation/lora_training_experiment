@@ -1,6 +1,6 @@
 # wan2.1_character_dataset.toml
 
-resolutions = [1024]
+resolutions = [512]
 
 # Aspect ratio bucketing is essential for character LoRAs. Do not disable this.
 enable_ar_bucket = true
@@ -14,4 +14,4 @@ num_ar_buckets = 6
 [[directory]]
 path = '/home/comfy/projects/lora_training_experiment/data_processor/Demetri_data/Demetriset'
 
-num_repeats = 5
+num_repeats = 7
