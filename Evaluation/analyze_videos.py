@@ -18,13 +18,10 @@ import seaborn as sns
 from skimage.metrics import structural_similarity as ssim
 from PIL import Image
 
-# Suppress unnecessary warnings
+
 logging.getLogger('matplotlib').setLevel(logging.ERROR)
 
 class UnifiedVideoEvaluator:
-    # ... (The entire class LoRAVideoEvaluator remains EXACTLY THE SAME as before) ...
-    # It already handles both .webp and .mp4 correctly in the load_video function.
-    # No changes are needed inside the class.
     
     def __init__(self, device='cuda', save_dir='evaluation_results'):
         self.device = torch.device(device if torch.cuda.is_available() else 'cpu')
@@ -51,7 +48,7 @@ class UnifiedVideoEvaluator:
                     frame_np = np.array(img.convert("RGB"))
                     frames.append(torch.from_numpy(frame_np).permute(2, 0, 1))
             video = torch.stack(frames).float().permute(1, 0, 2, 3)
-        else: # Assumes .mp4 or other decord-compatible formats
+        else: 
             decord.bridge.set_bridge('torch')
             vr = decord.VideoReader(video_path, ctx=decord.cpu(0))
             video = vr[:].float().permute(3, 0, 1, 2)
@@ -186,7 +183,7 @@ def main():
     parser.add_argument('--base_dir', type=str, default=None, help='(For Style LoRAs) Path to the directory of base model videos for comparison.')
     parser.add_argument('--lora_name', type=str, required=True, help='Name of the LoRA for titles and filenames (e.g., DBZ_Style, Demetri).')
     parser.add_argument('--save_dir', type=str, required=True, help='Directory to save the reports and plots.')
-    # --- THIS IS THE NEW ARGUMENT ---
+   
     parser.add_argument('--ext', type=str, default='webp', help='The file extension of the videos to look for (e.g., webp, mp4).')
     parser.add_argument('--device', type=str, default='cuda', help='Device to use (cuda or cpu)')
     args = parser.parse_args()
