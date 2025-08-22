@@ -1,0 +1,6 @@
+{
+  "fvd_style_difference": 17.95912391719195,
+  "mean_ssim_vs_base": 0.6118943095207214,
+  "mean_temporal_consistency_base": 0.10064770164675468,
+  "mean_temporal_consistency_lora": 0.09067444209217917
+}
