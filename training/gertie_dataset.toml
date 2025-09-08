@@ -1,0 +1,17 @@
+# wan2.1_character_dataset.toml
+
+resolutions = [512]
+
+# Aspect ratio bucketing is essential for character LoRAs. Do not disable this.
+enable_ar_bucket = true
+
+# Standard aspect ratio bucket settings that work well for characters.
+min_ar = 0.5
+max_ar = 2.0
+num_ar_buckets = 6
+
+# This section defines your dataset directory and repeats.
+[[directory]]
+path = '/home/comfy/projects/lora_training_experiment/data_processor/gertie_data/'
+
+num_repeats = 7
