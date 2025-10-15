@@ -46,8 +46,18 @@ def process_dataset():
         return
         
     # Create a fast lookup map: { "filename.mp4": "caption text" }
-    caption_map = {item['file_name']: item['caption'] for item in metadata_list}
-    print(f"Loaded {len(caption_map)} captions from {METADATA_FILE}.")
+    # --- Safe caption map ---
+    caption_map = {}
+    for i, item in enumerate(metadata_list):
+        file_name = item.get("file_name")
+        caption = item.get("caption")
+        if file_name is None or caption is None:
+            print(f"Skipping invalid metadata entry {i}: {item}")
+            continue
+        caption_map[file_name] = caption
+
+    print(f"Loaded {len(caption_map)} valid captions from {METADATA_FILE}")
+
 
     # --- Process Files ---
     files_processed = 0
